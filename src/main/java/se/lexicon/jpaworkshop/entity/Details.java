@@ -24,7 +24,6 @@ public class Details {
     @Setter
     @Column(nullable = false, length = 100)
     private String name;
-    @Setter
-    @Column(nullable = true, length = 100)
+
     LocalDate birthDate;
 }

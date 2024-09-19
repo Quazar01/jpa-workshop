@@ -25,8 +25,6 @@ public class AppUser {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @Setter
-    @Column(nullable = false, length = 6)
     LocalDate regDate;
 
     @Setter
