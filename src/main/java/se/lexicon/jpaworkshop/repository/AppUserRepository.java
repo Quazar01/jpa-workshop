@@ -12,11 +12,11 @@ import java.util.Optional;
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
     Optional<AppUser> findByUsername(String username);
-    Optional<List<AppUser>> findBetweenTwoDates(LocalDate startDate, LocalDate endDate);
-    Optional<AppUser> findByDetailsId(int detailsId);
-    Optional<AppUser> findByEmailIgonreCase(String email);
+    Optional<List<AppUser>> findByRegDateBetween(LocalDate startDate, LocalDate endDate);
+    Optional<AppUser> findByDetails_Id(int detailsId);
+    Optional<AppUser> findByDetails_Email_IgnoreCase(String email);
 
     //Optional
-    Optional<AppUser> findByUsernameAndPassword(String username, String password);
+//    Optional<AppUser> findByUsernameAndPassword(String username, String password);
 
 }

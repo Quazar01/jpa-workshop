@@ -19,7 +19,7 @@ public class AppUser {
 
     @Setter
     @Column(nullable = false, unique = true, length = 20)
-    private String uesrname;
+    private String username;
 
     @Setter
     @Column(nullable = false, length = 100)
@@ -34,7 +34,7 @@ public class AppUser {
 
     // Constructor
     public AppUser(String uesrname, String password) {
-        this.uesrname = uesrname;
+        this.username = uesrname;
         this.password = password;
         this.regDate = LocalDate.now();
     }
