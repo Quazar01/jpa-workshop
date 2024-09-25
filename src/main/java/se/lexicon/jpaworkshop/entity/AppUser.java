@@ -3,6 +3,8 @@ package se.lexicon.jpaworkshop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -32,9 +34,13 @@ public class AppUser {
     @JoinColumn(name = "details_id")
     private Details details;
 
+    @Setter
+    @OneToMany(mappedBy = "borrower")
+    private Set<BookLoan> loans = new HashSet<>();
+
     // Constructor
-    public AppUser(String uesrname, String password) {
-        this.username = uesrname;
+    public AppUser(String username, String password) {
+        this.username = username;
         this.password = password;
         this.regDate = LocalDate.now();
     }
