@@ -6,10 +6,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import se.lexicon.jpaworkshop.entity.AppUser;
 import se.lexicon.jpaworkshop.entity.Book;
+import se.lexicon.jpaworkshop.entity.BookLoan;
 import se.lexicon.jpaworkshop.entity.Details;
 import se.lexicon.jpaworkshop.repository.AppUserRepository;
+import se.lexicon.jpaworkshop.repository.BookLoanRepository;
 import se.lexicon.jpaworkshop.repository.BookRepository;
 import se.lexicon.jpaworkshop.repository.DetailsRepository;
+
+import java.time.LocalDate;
 
 @Component
 @Transactional
@@ -21,7 +25,8 @@ public class MyCommandLineRunner implements CommandLineRunner {
     DetailsRepository detailsRepository;
     @Autowired
     BookRepository bookRepository;
-
+    @Autowired
+    BookLoanRepository bookLoanRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -44,6 +49,26 @@ public class MyCommandLineRunner implements CommandLineRunner {
 
         // Find book by title constains.
         bookRepository.findByTitleContaining("Test").forEach(System.out::println);
+
+        // Create a new BookLoan
+        LocalDate startDate = LocalDate.now().minusDays(10);
+        LocalDate endDate = LocalDate.now().plusDays(10);
+
+        BookLoan bookLoan = new BookLoan(book, appUser);
+        bookLoanRepository.save(bookLoan);
+
+        // Find book loans by book's id
+        bookLoanRepository.findByBook_Id(book.getId()).forEach(System.out::println);
+        // Find book loans by borrower's id
+        bookLoanRepository.findByBorrower_Id(appUser.getId()).forEach(System.out::println);
+        // Find book loans that have not been returned.
+        bookLoanRepository.findByReturnedFalse().forEach(System.out::println);
+        // Find book loans that are overdue.
+        bookLoanRepository.findByDueDateBeforeAndReturnedFalse(bookLoan.getDueDate()).forEach(System.out::println);
+        // Find book loans between specified dates.
+        bookLoanRepository.findByLoanDateBetween(startDate, endDate).forEach(System.out::println);
+        // Mark a book loan as returned by its loan id.
+        bookLoanRepository.updateBookLoanReturnedToTrue(bookLoan.getId());
 
     }
 }

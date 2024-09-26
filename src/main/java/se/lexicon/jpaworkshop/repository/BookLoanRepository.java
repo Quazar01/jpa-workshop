@@ -1,14 +1,16 @@
 package se.lexicon.jpaworkshop.repository;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import se.lexicon.jpaworkshop.entity.BookLoan;
 
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Repository
 public interface BookLoanRepository extends CrudRepository<BookLoan, Integer> {
     // Find book loan by borrower's id
     List<BookLoan> findByBorrower_Id(int borrowerId);
@@ -20,7 +22,9 @@ public interface BookLoanRepository extends CrudRepository<BookLoan, Integer> {
     List<BookLoan> findByDueDateBeforeAndReturnedFalse(LocalDate dueDate);
     // Find book loans between specified dates.
     List<BookLoan> findByLoanDateBetween(LocalDate startDate, LocalDate endDate);
+
     // Mark a book loan as returned by its loan id.
+    @Modifying
     @Query("update BookLoan bl set bl.returned = true where bl.id = :loanId")
     void updateBookLoanReturnedToTrue(@Param("loanId") int id);
 
