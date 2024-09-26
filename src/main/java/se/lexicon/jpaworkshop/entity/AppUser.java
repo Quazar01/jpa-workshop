@@ -9,8 +9,8 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode (exclude = "loans")
+@ToString (exclude = "loans")
 
 @Entity
 public class AppUser {
@@ -51,5 +51,7 @@ public class AppUser {
         if(loan == null) throw new IllegalArgumentException("Loan was null");
         if(loans.contains(loan)) throw new IllegalArgumentException("Loan already exists.");
         loans.add(loan);
+        // Set the book available status to false.
+        loan.getBook().setAvailable(false);
     }
 }

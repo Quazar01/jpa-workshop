@@ -8,8 +8,9 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
+
+@ToString (exclude = {"borrower", "book"})
+@EqualsAndHashCode (exclude = {"borrower", "book"})
 
 @Entity
 public class BookLoan {

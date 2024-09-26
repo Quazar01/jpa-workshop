@@ -9,8 +9,8 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
+@ToString (exclude = {"authors", "bookLoans"})
+@EqualsAndHashCode (exclude = {"authors", "bookLoans"})
 
 @Entity
 public class Book {
@@ -24,9 +24,17 @@ public class Book {
     private int maxLoanDays;
 
     @Setter
+    private boolean available = true;
+
+
+    // Todo: The book should be the owner
+    @Setter
     // FetchType.EAGER is used to load all the authors of the book when the book is loaded.
     // CascadeType.ALL is used to propagate all operations (including delete) from a parent to a child entity.
-    @ManyToMany(mappedBy = "writtenBooks",fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(name = "books_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
     Set<Author> authors = new HashSet<>();
 
     @Setter
@@ -52,12 +60,12 @@ public class Book {
         if(author == null) throw new IllegalArgumentException("Author was null");
         if(authors.contains(author)) throw new IllegalArgumentException("Author already exists.");
         authors.add(author);
-        author.getWrittenBooks().add(this);
     }
     // Add a book loan to the book.
     public void addBookLoan(BookLoan bookLoan){
         if(bookLoan == null) throw new IllegalArgumentException("BookLoan was null");
         if(bookLoans.contains(bookLoan)) throw new IllegalArgumentException("BookLoan already exists.");
+        if(!available) throw new IllegalArgumentException("Book is not available.");
         bookLoans.add(bookLoan);
     }
 
