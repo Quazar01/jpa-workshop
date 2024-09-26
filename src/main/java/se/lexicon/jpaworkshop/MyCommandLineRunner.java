@@ -70,5 +70,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
         // Mark a book loan as returned by its loan id.
         bookLoanRepository.updateBookLoanReturnedToTrue(bookLoan.getId());
 
+        // Todo: Create an author and a book, then create a relationship between them.
+
     }
 }
