@@ -30,7 +30,7 @@ public class AppUser {
     LocalDate regDate;
 
     @Setter
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "details_id")
     private Details details;
 

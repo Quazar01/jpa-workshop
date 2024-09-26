@@ -6,7 +6,7 @@ import se.lexicon.jpaworkshop.entity.Details;
 
 import java.util.Optional;
 
-
+@Repository
 public interface DetailsRepository extends CrudRepository<Details, Integer> {
 
     Optional<Details> findByEmail(String email);
