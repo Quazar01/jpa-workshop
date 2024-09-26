@@ -17,7 +17,6 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Setter
     private String isbn;
     @Setter
     private String title;
@@ -32,5 +31,13 @@ public class Book {
     public Book(String title, int maxLoanDays) {
         this.title = title;
         this.maxLoanDays = maxLoanDays;
+        this.isbn = generateIsbn();
+    }
+
+
+    // Helper Methods
+    //Generate ISBN using UUID.
+    private String generateIsbn() {
+        return java.util.UUID.randomUUID().toString();
     }
 }
