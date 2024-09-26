@@ -24,6 +24,12 @@ public class Book {
     private int maxLoanDays;
 
     @Setter
+    // FetchType.EAGER is used to load all the authors of the book when the book is loaded.
+    // CascadeType.ALL is used to propagate all operations (including delete) from a parent to a child entity.
+    @ManyToMany(mappedBy = "writtenBooks",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<Author> authors = new HashSet<>();
+
+    @Setter
     @OneToMany(mappedBy = "book")
     private Set<BookLoan> bookLoans = new HashSet<>();
 
