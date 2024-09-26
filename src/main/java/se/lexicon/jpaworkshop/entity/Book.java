@@ -61,4 +61,19 @@ public class Book {
         bookLoans.add(bookLoan);
     }
 
+    // Remove an author from the book.
+    public void removeAuthor(Author author){
+        if(author == null) throw new IllegalArgumentException("Author was null");
+        if(!authors.contains(author)) throw new IllegalArgumentException("Author does not exist.");
+        authors.remove(author);
+        author.getWrittenBooks().remove(this);
+    }
+
+    // Remove a book loan from the book.
+    public void removeBookLoan(BookLoan bookLoan){
+        if(bookLoan == null) throw new IllegalArgumentException("BookLoan was null");
+        if(!bookLoans.contains(bookLoan)) throw new IllegalArgumentException("BookLoan does not exist.");
+        bookLoans.remove(bookLoan);
+    }
+
 }
