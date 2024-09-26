@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface BookRepository extends CrudRepository<Book, Integer> {
     Optional<Book> findByIsbnIgnoreCase(String isbn);
     List<Book> findByTitleContaining(String title);
-//    List<Book> findByMaxLoanDaysLessThan(int maxLoanDays);
+    List<Book> findByMaxLoanDaysLessThan(int maxLoanDays);
 }
