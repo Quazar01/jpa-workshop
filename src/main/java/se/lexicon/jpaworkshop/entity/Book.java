@@ -26,7 +26,7 @@ public class Book {
     @Setter
     // FetchType.EAGER is used to load all the authors of the book when the book is loaded.
     // CascadeType.ALL is used to propagate all operations (including delete) from a parent to a child entity.
-    @ManyToMany(mappedBy = "writtenBooks",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "writtenBooks",fetch = FetchType.EAGER)
     Set<Author> authors = new HashSet<>();
 
     @Setter

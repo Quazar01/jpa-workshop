@@ -23,10 +23,12 @@ public class BookLoan {
     @Setter
     private boolean returned;
     @Setter
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "borrower_id")
     private AppUser borrower;
     @Setter
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id")
     private Book book;
 
     // Constructor
@@ -37,6 +39,12 @@ public class BookLoan {
         // Assign the due date to the loan date plus the max loan days of the book.
         this.dueDate = loanDate.plusDays(book.getMaxLoanDays());
         this.returned = false;
+    }
+
+    // Helper Methods
+    // Calculate the field dueDate by using "maxLoanDays" from the book.
+    public void calculateDueDate(){
+        this.dueDate = this.loanDate.plusDays(book.getMaxLoanDays());
     }
 
 }
