@@ -46,4 +46,19 @@ public class Book {
     private String generateIsbn() {
         return java.util.UUID.randomUUID().toString();
     }
+
+    // Add an author to the book.
+    public void addAuthor(Author author){
+        if(author == null) throw new IllegalArgumentException("Author was null");
+        if(authors.contains(author)) throw new IllegalArgumentException("Author already exists.");
+        authors.add(author);
+        author.getWrittenBooks().add(this);
+    }
+    // Add a book loan to the book.
+    public void addBookLoan(BookLoan bookLoan){
+        if(bookLoan == null) throw new IllegalArgumentException("BookLoan was null");
+        if(bookLoans.contains(bookLoan)) throw new IllegalArgumentException("BookLoan already exists.");
+        bookLoans.add(bookLoan);
+    }
+
 }

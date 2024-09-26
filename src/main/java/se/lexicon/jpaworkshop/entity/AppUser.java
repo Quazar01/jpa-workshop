@@ -44,4 +44,12 @@ public class AppUser {
         this.password = password;
         this.regDate = LocalDate.now();
     }
+
+    // Helper Methods
+    // Add a book loan to the user.
+    public void addLoan(BookLoan loan){
+        if(loan == null) throw new IllegalArgumentException("Loan was null");
+        if(loans.contains(loan)) throw new IllegalArgumentException("Loan already exists.");
+        loans.add(loan);
+    }
 }

@@ -16,5 +16,4 @@ public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
     Optional<List<AppUser>> findByRegDateBetween(LocalDate startDate, LocalDate endDate);
     Optional<AppUser> findByDetails_Id(int detailsId);
     Optional<AppUser> findByDetails_Email_IgnoreCase(String email);
-
 }
